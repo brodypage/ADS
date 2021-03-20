@@ -1,0 +1,2 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(519,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (ADS_LinkedLists.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  ADS_LinkedLists.vcxproj -> C:\Users\Brody\OneDrive\Documents\Torrens\ADS103\assignments\2\ADS103_Assesment_2_Brody_Page\Debug\ADS103_Assesment_2_Brody_Page.exe

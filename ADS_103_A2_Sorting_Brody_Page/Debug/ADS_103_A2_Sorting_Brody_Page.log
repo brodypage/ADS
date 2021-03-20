@@ -1,0 +1,11 @@
+﻿  Source.cpp
+C:\Users\Brody\OneDrive\Documents\Torrens\ADS103\assignments\2\ADS_103_A2_Sorting_Brody_Page\Source.cpp(10,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\Brody\OneDrive\Documents\Torrens\ADS103\assignments\2\ADS_103_A2_Sorting_Brody_Page\Timer.h(29,93): warning C4244: 'return': conversion from '_Rep' to 'double', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+C:\Users\Brody\OneDrive\Documents\Torrens\ADS103\assignments\2\ADS_103_A2_Sorting_Brody_Page\Source.cpp(100,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+C:\Users\Brody\OneDrive\Documents\Torrens\ADS103\assignments\2\ADS_103_A2_Sorting_Brody_Page\Source.cpp(156,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Brody\OneDrive\Documents\Torrens\ADS103\assignments\2\ADS_103_A2_Sorting_Brody_Page\Source.cpp(168,21): warning C4018: '<': signed/unsigned mismatch
+  ADS_103_A2_Sorting_Brody_Page.vcxproj -> C:\Users\Brody\OneDrive\Documents\Torrens\ADS103\assignments\2\ADS_103_A2_Sorting_Brody_Page\Debug\ADS_103_A2_Sorting_Brody_Page.exe

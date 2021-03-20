@@ -1,0 +1,4 @@
+
+
+INSERTION SORTED
+Time elapsed: 5 Milliseconds
