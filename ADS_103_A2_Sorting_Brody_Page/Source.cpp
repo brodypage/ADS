@@ -7,13 +7,10 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include "Timer.h";
+#include "Timer.h"
 
 
 using namespace std;
-
-Timer t;
-
 
 void mySwap(int arr[], int i, int j)
 {
@@ -30,26 +27,67 @@ void displayArray(int arr[], int arraySize)
 	}
 }
 
-void insertionSort(int arr[], int arraySize, bool order)
+int partition(int arr1[], int low, int high, bool order)
 {
-	for (int i = 1; i <= arraySize - 1; i++)
-	{
-		//makes a copy of the value at index i in array
-		int key = arr[i];
-		int j = i - 1;
+	int pivot = arr1[low];
+	int i = low, j = high;
 
-		//while j is index 0 or higher AND
-		//also aslong as value in arr[j] bigger then key value
-		while (j <= 0 && arr[j] > key)
+	if (order == false)
+	{
+		while (i < j)
 		{
-			//move value in index j up 1
-			arr[j + 1] = arr[j];
-			//keep moving j to the left
-			j = j - 1;
+
+			do {
+				i++;
+			} while (arr1[i] <= pivot);
+
+
+			do {
+				j--;
+			} while (arr1[j] > pivot);
+
+			if (i < j)
+				swap(arr1[i], arr1[j]);
 		}
-		//we've moved everything up, so put key value back in
-		//to where it should fit
-		arr[j + 1] = key;
+		swap(arr1[low], arr1[j]);
+
+
+		return j;
+	}
+
+	else if (order == true)
+	{
+		while (i < j)
+		{
+
+			do {
+				i++;
+			} while (arr1[i] > pivot);
+
+
+			do {
+				j--;
+			} while (arr1[j] < pivot);
+
+			if (i < j)
+				swap(arr1[i], arr1[j]);
+		}
+		swap(arr1[low], arr1[j]);
+
+
+		return j;
+	}
+
+}
+
+void quickSort(int arr1[], int low, int high, bool order)
+{
+	
+	if (low < high)
+	{
+		int partitionIndex = partition(arr1, low, high, order);
+		quickSort(arr1, low, partitionIndex, order);
+		quickSort(arr1, partitionIndex + 1, high, order);
 	}
 }
 
@@ -95,110 +133,101 @@ void bubbleSort(int arr[], int arraySize, bool order)
 	
 }
 
-
 void main()
 {
-	int arr1[10] = {  };
 	int lineOne;
 	int lineTwo;
 	int lineThree;
 
 
 	//----------------------------------------------------------------------------
-	//----------------------------------------------------------------------------
+	//---------------------READ AND WRITE-----------------------------------------
 	//----------------------------------------------------------------------------
 
 	ifstream readFile;
 	readFile.open("input-a1q1.txt");
 	ofstream writeFile;
 	writeFile.open("output-a1q1.txt");
-	
+
 	readFile >> lineOne >> lineTwo >> lineThree;
 
-	vector<int> lineFour;
-	for (int i = 1; i <= lineThree; i++)
+	int* array = new int(lineThree);
+
+	for (int i = 0; i < lineThree; i++)
 	{
-		int temp;
-		readFile >> temp; //NOTE spaces and endlines are skipped in file reading ;)
-		lineFour.push_back(temp);
-	}
-	readFile.close();
-
-	/*lets output what we got
-	cout << "Number of numbers in file: " << lineThree << endl;
-	for (int i = 0; i < lineFour.size(); i++)
-	{
-		cout << lineFour[i] << " ";
-	}
-	cout << endl; */
-
-	bool order = lineOne;
-
-
-	copy(lineFour.begin(), lineFour.end(), arr1);
-
-	for (int i : arr1) {
-		cout << i << ' ';
+		if (readFile.eof())
+		{
+			writeFile << "Line Three error. There are less elements than specified!";
+			return;
+		}
+		 readFile >> array[i];
 	}
 
-	if (lineOne < 0 && lineOne > 1)
+	readFile.close(); //stop reading file
+
+	bool order = lineOne; // tests true or false to determine whether it will be ascending or descending
+
+	//----------------------------------------------------------------------------
+	//---------------------ERROR TESTING------------------------------------------
+	//----------------------------------------------------------------------------
+
+	if (lineOne != 0 && lineOne != 1)
 	{
-		writeFile << "Invalid input." << endl;
+		writeFile << "Line One error. Must be 0 or 1." << endl; // if line one less than 0 and greater than one, quit
 		return;
 	}
 
+	if (lineTwo != 0 && lineTwo != 1)
+	{
+		writeFile << "Line Two error. Must be 0 or 1." << endl; // if line one less than 0 and greater than one, quit
+		return;
+	}
+
+
+	if (lineThree < 0)
+	{
+		writeFile << "Line three error. Must either be a positive value or if 0, there is nothing to sort." << endl;
+		return;
+	}
+
+	//----------------------------------------------------------------------------
+	//---------------------SORTING------------------------------------------------
+	//----------------------------------------------------------------------------
+
 	if (lineTwo == 0)
 	{
+		//if line two = 0, bubble sort
 		writeFile << "BUBBLE SORTED" << endl;
-		bubbleSort(arr1, lineThree, order);
+		Timer t;
+		bubbleSort(array, lineThree, order);
 		writeFile << "Time elapsed: " << t.elapsed() << " Milliseconds" << endl;
-		displayArray(arr1, lineThree);
-		for (int i = 0; i < lineFour.size(); ++i)
+		displayArray(array, lineThree);
+		for (int i = 0; i < lineThree; ++i)
 		{
-			writeFile << arr1[i] << " ";
+			writeFile << array[i] << " ";
 		}
 	}
 
 	else if (lineTwo == 1)
 	{
-		writeFile << "INSERTION SORTED" << endl;
-		insertionSort(arr1, lineThree, order);
-		displayArray(arr1, lineThree);
+		//if line two equals 1, quick sort
+		writeFile << "QUICK SORTED" << endl;
+		Timer t;
+		quickSort(array, 0, lineThree, order);
+		displayArray(array, lineThree);
 		writeFile << "Time elapsed: " << t.elapsed() << " Milliseconds" << endl;
-		for (int i = 0; i < lineFour.size(); ++i)
+		for (int i = 0; i < lineThree; ++i)
 		{
-			writeFile << arr1[i] << " ";
+			writeFile << array[i] << " ";
 		}
 	}
 
 	else
 	{
-		writeFile << "Invalid input." << endl;
+		//if neither 0 or 1, quit
+		writeFile << "Second line error. Must be 0 or 1." << endl;
 		return;
 	}
-
-	
-
-	//----------------------------------------------------------------------------
-	//----------------------------------------------------------------------------
-	//----------------------------------------------------------------------------
-
-	
-
-
-	//first line contains 0 or 1.
-	//0 is ascending order
-	//1 is descending order
-	//IF NOT 0 OR 1 REPORT ERROR AND EXIT
-
-	//first line contains 0 or 1, 0 means simple algorithm
-	//1 means more complex
-
-	//third line is the number of elements, CANNOT be negative to test for that
-	//CAN BE 0 BUT REPORT NOTHING TO SORT AND EXIT
-
-	//fourth line must contain at least as many data elements as line 3 if you reach the end of the file before that
-	//then error and quit
 
 	system("pause");
 }
