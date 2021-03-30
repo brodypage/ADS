@@ -1,0 +1,19 @@
+INSERT AT FRONT
+Amount of numbers detected in file: 350000
+Time elapsed: 76 Milliseconds
+Size of list: 350000
+
+DELETE FROM FRONT
+Amount of numbers detected in list: 350000
+Time elapsed: 2139 Milliseconds
+Size of list after deleting from front: 0
+
+INSERT AT END
+Amount of numbers detected in file: 350000
+Time elapsed: 489088 Milliseconds
+Size of list: 350000
+
+DELETE FROM END
+Amount of numbers detected in list: 350000
+Time elapsed: 971753 Milliseconds
+
